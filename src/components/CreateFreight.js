@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Button, Input, Row, Col, Radio, Steps, Result } from "antd";
+import { Button, Input, Row, Col, Steps, Result } from "antd";
 import { freightUrl, ipfsUrl, getExplorerUrl, qrUrl, humanError, createFundRequest } from "../util";
-import { ACTIVE_CHAIN, EXAMPLE_FORM } from "../constants";
+import { EXAMPLE_FORM } from "../constants";
 import { FileDrop } from "./FileDrop/FileDrop";
 import { uploadFiles } from "../util/stor";
 import { deployContract } from "../contract/freightContract";
@@ -9,7 +9,7 @@ import TextArea from "antd/lib/input/TextArea";
 
 const { Step } = Steps;
 
-function CreateFreight({address}) {
+function CreateFreight({ address, provider }) {
 
   const [data, setData] = useState({ ...EXAMPLE_FORM });
   const [error, setError] = useState();
@@ -55,7 +55,7 @@ function CreateFreight({address}) {
 
     try {
       // 1) deploy base contract with metadata,
-      const contract = await deployContract(data.name, data.notes)
+      const contract = await deployContract(provider.getSigner(), data.name, data.notes)
       res["contract"] = contract.address;
       res["contractUrl"] = getExplorerUrl(contract.address);
 
@@ -95,53 +95,55 @@ function CreateFreight({address}) {
       <Row>
         <Col span={16}>
           <div className="create-form white boxed">
-            <h2>Create new freight request</h2>
-            <br />
+            {!result && (<div>
+              <h2>Create new freight request</h2>
+              <br />
 
-            <h3 className="vertical-margin">Freight request name:</h3>
-            <Input
-              placeholder="Name of the freight request"
-              value={data.name}
-              prefix="Name:"
-              onChange={(e) => updateData("name", e.target.value)}
-            />
-            <br/>
-            <br/>
+              <h3 className="vertical-margin">Freight request name:</h3>
+              <Input
+                placeholder="Name of the freight request"
+                value={data.name}
+                prefix="Name:"
+                onChange={(e) => updateData("name", e.target.value)}
+              />
+              <br />
+              <br />
 
-            <TextArea
-              aria-label="Notes"
-              onChange={(e) => updateData("notes", e.target.value)}
-              placeholder="Add any additional notes on the parcel"
-              prefix="Notes"
-              value={data.notes}
-            />
+              <TextArea
+                aria-label="Notes"
+                onChange={(e) => updateData("notes", e.target.value)}
+                placeholder="Add any additional notes on the parcel"
+                prefix="Notes"
+                value={data.notes}
+              />
 
-            {/* TODO: add configurable amount of items */}
-            <h3 className="vertical-margin">Optional: Upload image(s) of parcel</h3>
-            <FileDrop
-              files={data.files}
-              setFiles={(files) => updateData("files", files)}
-            />
+              {/* TODO: add configurable amount of items */}
+              <h3 className="vertical-margin">Optional: Upload image(s) of parcel</h3>
+              <FileDrop
+                files={data.files}
+                setFiles={(files) => updateData("files", files)}
+              />
 
-            <Button
-              type="primary"
-              className="standard-button"
-              onClick={create}
-              disabled={loading || errMessage}
-              loading={loading}
-              size="large"
-            >
-              Create freight request!
-            </Button>
-            {!error && !result && loading && (
-              <span>&nbsp;Note this may take a few moments.</span>
-            )}
+              <Button
+                type="primary"
+                className="standard-button"
+                onClick={create}
+                disabled={loading || errMessage}
+                loading={loading}
+                size="large"
+              >
+                Create freight request!
+              </Button>
+              {!error && !result && loading && (
+                <span>&nbsp;Note this may take a few moments.</span>
+              )}
+            </div>)}
             <br />
             <br />
             {error && <div className="error-text">Error: {error}</div>}
             {result && (<div>
-              <Result     status="success"
- title="Created freight request!"/>
+              <Result status="success"
+                title="Created freight request!" />
               <div>
                 <a href={ipfsUrl(result.hash)} target="_blank">
                   View metadata
@@ -159,7 +161,7 @@ function CreateFreight({address}) {
                   </a>
                 </p>
               </div>
-              </div>
+            </div>
             )}
           </div>
         </Col>

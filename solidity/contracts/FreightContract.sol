@@ -5,14 +5,15 @@ import "hardhat/console.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 // This is the main building block for smart contracts.
-contract FreightContract {
+contract FreightContract is Ownable {
     // Some string type variables to identify the token.
     string public name;
+
     // Last recorded values.
-    string public location;
-    string public lat;
-    string public lng;
-    string public notes;
+    string public lat; // Latitude of the last recorded location.
+    string public lng; // Longitude of the last recorded location.
+    string public notes; // Notes from the last recorded update.
+    string public lastIpfsUrl; // Last images uploaded to IPFS.
     address public lastSender;
 
     // Indicates if the contract is active or completed (false on creation).
@@ -37,10 +38,10 @@ contract FreightContract {
         lat = _lat;
         lng = _lng;
 
-        emit FreightEvent(lastSender, name, msg.sender, lat, lng, notes, ipfsUrl);
+        emit FreightEvent(owner(), name, msg.sender, lat, lng, notes, ipfsUrl);
     }
 
-    function markCompleted() public {
+    function markCompleted() public onlyOwner {
         isCompleted = true;
     }
 }

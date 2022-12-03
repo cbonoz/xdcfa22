@@ -41,8 +41,10 @@ export function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-export const getExplorerUrl = (hash, useTx) =>
-  `${ACTIVE_CHAIN.url}${useTx ? "tx/" : "address/"}${hash}`;
+export const getExplorerUrl = (hash, useTx) => {
+  hash = xdcAddress(hash);
+  return `${ACTIVE_CHAIN.url}${useTx ? "tx/" : "address/"}${hash}`;
+}
 
 export const createJsonFile = (signload, fileName) => {
   const st = JSON.stringify(signload);

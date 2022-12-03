@@ -37,7 +37,11 @@ function App() {
   // Get the address from the metamask provider
   async function getAddress() {
     if (provider) {
-      const accounts = await provider.send("eth_requestAccounts", []);
+      // const accounts = await provider.send("eth_requestAccounts", []);
+      const accounts = await provider.listAccounts();
+
+      // const signer = provider.getSigner(accounts[0])
+      // const res = await signer.getAddress()
       setAddress(accounts[0])
     }
   }
@@ -65,13 +69,13 @@ function App() {
       /**********************************************************/
       /* Handle chain (network) and chainChanged (per EIP-1193) */
       /**********************************************************/
-      const chainId = await window.ethereum.request({ method: 'eth_chainId' });
-      if (parseInt(chainId, 16) !== ACTIVE_CHAIN.id) {
-        alert(`Please connect to ${ACTIVE_CHAIN.name} network`);
-        return;
-      }
+      // const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+      // if (parseInt(chainId, 16) !== ACTIVE_CHAIN.id) {
+      //   alert(`Please connect to ${ACTIVE_CHAIN.name} network`);
+      //   return;
+      // }
 
-      const ethersProvider = new ethers.providers.Web3Provider(window.ethereum)
+      const ethersProvider = new ethers.providers.JsonRpcProvider(ACTIVE_CHAIN.rpc);
       setProvider(ethersProvider)
     } catch (e) {
       console.error(e);
@@ -141,8 +145,8 @@ function App() {
               {/* <Route path="/carbon-map" element={<Home/>}/> */}
               <Route path="/about" element={<About />} />
               <Route path="/history" element={<History />} />
-              <Route path="/create" element={<CreateFreight address={address} />} />
-              <Route path="/i/:itemId" element={<Lookup address={address} connect={connect} walletLoading={loading} />} />
+              <Route path="/create" element={<CreateFreight provider={provider} address={address} />} />
+              <Route path="/i/:itemId" element={<Lookup provider={provider} address={address} connect={connect} walletLoading={loading} />} />
               <Route path="/qr/:itemId" element={<QrCodePage />} />
               <Route path="/about" element={<About />} />
 

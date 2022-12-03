@@ -18,8 +18,8 @@ export const CHAIN_OPTIONS = {
     name: "XDC Mainnet",
     network: "XDC Mainnet",
     symbol: "XDC",
-    rpc: "https://rpc.xinfin.network",
-    rpcUrls: {default: "https://rpc.xinfin.network"},
+    rpc: "https://erpc.xinfin.network",
+    rpcUrls: {default: "https://erpc.xinfin.network"},
     url: "https://explorer.xinfin.network/",
     blockExplorers: {default: "https://explorer.xinfin.network/"},
     id: 50
@@ -28,8 +28,10 @@ export const CHAIN_OPTIONS = {
     name: "XDC Testnet",
     network: "XDC Testnet",
     symbol: "TXDC",
-    rpc: "https://rpc.apothem.network",
-    rpcUrls: {default: "https://rpc.apothem.network"},
+    rpc: "https://erpc.xinfin.network",
+    rpcUrls: {default: "https://erpc.xinfin.network"},
+    // rpc: "https://erpc.apothem.network",
+    // rpcUrls: {default: "https://erpc.apothem.network"},
     url: "https://explorer.apothem.network/",
     blockExplorers: {default: "https://explorer.apothem.network/"},
     id: 51
