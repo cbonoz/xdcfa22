@@ -9,6 +9,10 @@
   cursor: pointer;
 }
 
+.heading-button {
+  margin-top: 2px;
+}
+
 /* .App {
 } */
 
@@ -129,8 +133,11 @@ textarea {
 }
 
 .standard-btn {
-  padding: 10px;
   margin-top: 20px;
+}
+
+.thumb-detail {
+  margin-left: 4px;
 }
 
 .prompt-section {

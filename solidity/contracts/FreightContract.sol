@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 
+import "hardhat/console.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
 // This is the main building block for smart contracts.
 contract FreightContract {
@@ -13,8 +15,7 @@ contract FreightContract {
     string public notes;
     address public lastSender;
 
-   // An address type variable is used to store ethereum accounts.
-    address public owner;
+    // Indicates if the contract is active or completed (false on creation).
     bool public isCompleted;
 
     // The Transfer event helps off-chain applications understand
@@ -22,7 +23,7 @@ contract FreightContract {
     event FreightEvent(address indexed owner, string indexed name, address indexed updater, string notes, string lat, string lng, string ipfsUrl);
 
     constructor(string memory _name, string memory _notes) payable {
-        owner = msg.sender;
+        console.log("Deploying a FreightContract contract with name:", _name);
         name = _name;
         notes = _notes;
         isCompleted = false;
@@ -36,11 +37,10 @@ contract FreightContract {
         lat = _lat;
         lng = _lng;
 
-        emit FreightEvent(owner, name, msg.sender, lat, lng, notes, ipfsUrl);
+        emit FreightEvent(lastSender, name, msg.sender, lat, lng, notes, ipfsUrl);
     }
 
     function markCompleted() public {
-        require(msg.sender == owner, "Only the contract owner may call this function");
         isCompleted = true;
     }
 }

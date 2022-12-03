@@ -8,12 +8,21 @@ import { FREIGHT_CONTRACT } from "./metadata";
 //     return signer;
 // };
 
+const getSigner = async () => {
+  let signer;
+  await window.ethereum.enable();
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  signer = provider.getSigner();
+  return signer;
+};
+
 // https://dapp-world.com/smartbook/how-to-use-ethers-with-xdc-k5Hn
-export async function deployContract(signer, title, notes) {
+export async function deployContract(title, notes) {
 
   //   https://dev.to/yosi/deploy-a-smart-contract-with-ethersjs-28no
 
   // Create an instance of a Contract Factory
+  const signer = await getSigner();
   const factory = new ethers.ContractFactory(
     FREIGHT_CONTRACT.abi,
     FREIGHT_CONTRACT.bytecode,
@@ -29,19 +38,12 @@ export async function deployContract(signer, title, notes) {
   return contract;
 }
 
-export const validAddress = (addr) => {
-  try {
-    ethers.utils.getAddress(addr);
-    return true;
-  } catch (e) {
-    return false;
-  }
-};
-
-export const recordParcelEvent = async (signer, contractAddress, notes, lat, lng) => {
+export const recordParcelEvent = async (contractAddress, notes, lat, lng) => {
   if (!contractAddress) {
     throw Error('No contract address provided')
   }
+
+  const signer = await getSigner();
   const freightContract = new ethers.Contract(
     contractAddress,
     FREIGHT_CONTRACT.abi,
@@ -54,10 +56,12 @@ export const recordParcelEvent = async (signer, contractAddress, notes, lat, lng
 };
 
 
-export const markContractCompleted = async (signer, contractAddress) => {
+export const markContractCompleted = async (contractAddress) => {
   if (!contractAddress) {
     throw Error('No contract address provided')
   }
+  
+  const signer = await getSigner();
   const freightContract = new ethers.Contract(
     contractAddress,
     FREIGHT_CONTRACT.abi,

@@ -8,7 +8,7 @@
 Blockfreight
 ---
 
-Blockfreight is a blockchain product tracking platform for any parcel.
+Blockfreight is a XDC blockchain product tracking platform for any parcel.
 
 Generates a unique blockchain-backed QR code that can either be presented or placed on the cargo of interest.
 
@@ -16,7 +16,7 @@ Built for the <a href="https://xdc.devpost.com" target="_blank">XDC Defi 2022 ha
 
 Demo video: 
 
-Going after the best ported Dapp to XDC prize category.
+Going after the best ported Dapp to XDC prize category. Ported dapp of Blockfreight (an app built on polygon), and designed to work as package tracking platform similar to apps like Flexport.
 
 ### Motivation
 
@@ -56,10 +56,8 @@ Every completed freight update via the QR code emits a `FreightEvent` that gets 
 Define the follow environment variables.
 
 <pre>
-    REACT_APP_COVALENT_KEY= // Your covalent API key (optional - needed from history tab)
-    REACT_APP_STORAGE_KEY=  // Your web3.storage key.
-    REACT_APP_ACTIVE_CHAIN_ID= // 80001 or 137 currently for xdc testnet or mainnet (defaults to testnet).
-    REACT_APP_WC_ID= // cloud.walletconnect.com app id (defaults to a demo app id).
+    REACT_APP_STORAGE_KEY=  // Your web3.storage key (for file storage).
+    REACT_APP_ACTIVE_CHAIN_ID= // 51 or 50 currently for xdc testnet or mainnet (defaults to testnet).
 </pre>
 
 

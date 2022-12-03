@@ -6,12 +6,10 @@ import { FileDrop } from "./FileDrop/FileDrop";
 import { uploadFiles } from "../util/stor";
 import { deployContract } from "../contract/freightContract";
 import TextArea from "antd/lib/input/TextArea";
-import { useSigner } from "wagmi";
 
 const { Step } = Steps;
 
 function CreateFreight({address}) {
-  const { data: signer, isError, isLoading } = useSigner()
 
   const [data, setData] = useState({ ...EXAMPLE_FORM });
   const [error, setError] = useState();
@@ -40,7 +38,7 @@ function CreateFreight({address}) {
       return;
     }
 
-    if (!signer) {
+    if (!address) {
       setError("Please connect a valid wallet");
       return;
     }
@@ -57,7 +55,7 @@ function CreateFreight({address}) {
 
     try {
       // 1) deploy base contract with metadata,
-      const contract = await deployContract(signer, data.name, data.notes)
+      const contract = await deployContract(data.name, data.notes)
       res["contract"] = contract.address;
       res["contractUrl"] = getExplorerUrl(contract.address);
 

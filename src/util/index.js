@@ -8,6 +8,13 @@ export function addMinutes(numOfMinutes, date = new Date()) {
 
 export const abbreviate = s => s ? `${s.substr(0, 6)}**` : ''
 
+export const xdcAddress = s => {
+  if (!s) {
+    return ""
+  }
+  return s.startsWith('0x') ? s.replace('0x', 'xdc') : s;
+}
+
 
 export const formatDate = (d) => {
     if (!(d instanceof Date)) {

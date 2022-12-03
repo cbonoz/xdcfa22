@@ -38,8 +38,11 @@ export const CHAIN_OPTIONS = {
 
 export const CHAIN_IDS = Object.keys(CHAIN_OPTIONS)
 
-export const IS_MAINNET = process.env.REACT_APP_STAGE === 'prod'
-export const ACTIVE_CHAIN = CHAIN_OPTIONS[IS_MAINNET ? "50" : "51"];
+export const CHAIN_ID = process.env.REACT_APP_CHAIN_ID || "51"
+export const ACTIVE_CHAIN = CHAIN_OPTIONS[CHAIN_ID];
+if (!ACTIVE_CHAIN) {
+  throw new Error("Invalid chain id")
+}
 
 export const IPFS_BASE_URL = "https://ipfs.io/ipfs"
 // export const IPFS_BASE_URL = "https://ipfs.moralis.io:2053/ipfs";

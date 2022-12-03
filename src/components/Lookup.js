@@ -1,18 +1,15 @@
-import { Web3Button } from '@web3modal/react'
 import { Button, Result, Spin } from 'antd'
 import TextArea from 'antd/lib/input/TextArea'
 import React, {useState, useEffect} from 'react'
 import { useParams } from 'react-router'
-import { useSigner } from 'wagmi'
-import { EXAMPLE_FORM } from '../constants'
+import { ACTIVE_CHAIN, EXAMPLE_FORM } from '../constants'
 import { recordParcelEvent } from '../contract/freightContract'
 import { humanError, ipfsUrl } from '../util'
 import { getLocation } from '../util/location'
 import { getMetadata } from '../util/stor'
 import { FileDrop } from './FileDrop/FileDrop'
 
-export default function Lookup({address}) {
-  const { data: signer, isError, isLoading } = useSigner()
+export default function Lookup({walletLoading, connect, address}) {
 
   const [error, setError] = useState()
   const [result, setResult] = useState()
@@ -43,7 +40,7 @@ export default function Lookup({address}) {
   const {contract, contractUrl} = parcel || {}
     try {
 
-      const res = await recordParcelEvent(signer, contract, data.notes, location?.latitude, location?.longitude)
+      const res = await recordParcelEvent(contract, data.notes, location?.latitude, location?.longitude)
       setResult({contractUrl, ...res})
     } catch (e) {
       setError(e.message)
@@ -123,7 +120,9 @@ export default function Lookup({address}) {
         Submit update
       </Button>}
 
-      {!isReady && <Web3Button/>}
+      <span className="web3-button">
+        <Button onClick={connect} disabled={loading} loading={walletLoading}>{address ? 'Disconnect' : 'Connect Wallet'}</Button>
+      </span>
       {result && <Result status="success" title="Event recorded!"
       subTitle={`TX: ${result.hash}`}
         extra={[

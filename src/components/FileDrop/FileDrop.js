@@ -15,11 +15,11 @@ const thumb = {
   border: "2px dotted gray", //  #eaeaea",
   marginBottom: 8,
   marginRight: 8,
-  width: 200,
+  width: 275,
   textAlign: "left",
-  height: 75,
+  height: 90,
   overflow: "hidden",
-  padding: 4,
+  padding: 8,
   boxSizing: "border-box",
 };
 
@@ -51,7 +51,8 @@ export function FileDrop({ files, setFiles }) {
 
   const thumbs = files.map((file) => (
     <div style={thumb} key={file.name}>
-      <div style={thumbInner}>
+      {file.preview && <img src={file.preview}/>}
+      <div style={thumbInner} className='thumb-detail'>
         <p>
           <b>{file.name}</b>
           <br />
@@ -82,7 +83,7 @@ export function FileDrop({ files, setFiles }) {
         <p>Drag 'n' drop some files here, or click to select files</p>
       </div>
       <br />
-      <b>{files.length === 0 ? 'No files uploaded' : 'Files to upload:'}</b>
+      <b>{files.length === 0 ? 'No files uploaded' : `Files to upload (${files.length})`}</b>
       <aside style={thumbsContainer}>{thumbs}</aside>
     </section>
   );
