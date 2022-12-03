@@ -1,0 +1,6 @@
+.dccache
+node_modules
+build
+*.json
+*.bin
+.DS_Store
