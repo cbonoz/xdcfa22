@@ -10,13 +10,13 @@ Blockfreight
 
 Blockfreight is a XDC blockchain product tracking platform for any parcel.
 
-Generates a unique blockchain-backed QR code that can either be presented or placed on the cargo of interest.
+Generate unique blockchain-backed QR codes that can either be presented or placed on the cargo of interest.
 
 Built for the <a href="https://xdc.devpost.com" target="_blank">XDC Defi 2022 hackathon.</a>
 
 Demo video: 
 
-Going after the best ported Dapp to XDC prize category. Ported dapp of Blockfreight (an app built on polygon), and designed to work as package tracking platform similar to apps like Flexport.
+Going after the best ported Dapp to XDC prize categor and designed to work as a light blockchain-based package tracking platform similar to apps like Flexport.
 
 ### Motivation
 
