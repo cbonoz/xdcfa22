@@ -87,10 +87,10 @@ Blockfreight should now be running on port 3000.
 ### Contract created!
 <img src="./img/created.png" width=800 />
 
-### IPFS record on contract creation
+### IPFS-managed parcel images and updates.
 <img src="./img/ipfs.png" width=800 />
 
-### Contract Metadata 
+### Contract Metadata (hosted on IPFS, immutable record after creation)
 <img src="./img/metadata.png" width=800 />
 
 ### QR code
@@ -99,7 +99,7 @@ Blockfreight should now be running on port 3000.
 ### Printing QR code
 <img src="./img/print.png" width=800 />
 
-### Providing a freight contract update
+### Providing a freight contract update from the QR code page
 <img src="./img/update.png" width=800 />
 
 ### Viewing freight update history on the XDC smart contracct
