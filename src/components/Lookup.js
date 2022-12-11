@@ -1,4 +1,4 @@
-import { Button, Result, Spin } from 'antd'
+import { Button, Card, Result, Spin } from 'antd'
 import TextArea from 'antd/lib/input/TextArea'
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router'
@@ -13,7 +13,7 @@ export default function Lookup({ walletLoading, connect, address, provider }) {
 
   const [error, setError] = useState()
   const [result, setResult] = useState()
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [parcel, setParcel] = useState()
   const [location, setLocation] = useState()
   const [data, setData] = useState({ ...EXAMPLE_FORM })
@@ -42,7 +42,7 @@ export default function Lookup({ walletLoading, connect, address, provider }) {
 
       const res = await recordParcelEvent(provider.getSigner(), contract, data.notes, location?.latitude, location?.longitude)
       res['contractUrl'] = contractUrl
-      console.log('udpate result', res)
+      console.log('contract update result', res)
       setResult(res)
     } catch (e) {
       console.error('Error recording update', e)
@@ -59,7 +59,7 @@ export default function Lookup({ walletLoading, connect, address, provider }) {
       const res = await getMetadata(ipfsUrl(itemId))
       setParcel(res?.data || {})
     } catch (e) {
-      console.error('error fetching record', e)
+      console.error('Error fetching record', e)
       let { message } = e
       setError(humanError(message))
     } finally {
@@ -79,7 +79,7 @@ export default function Lookup({ walletLoading, connect, address, provider }) {
     return <Spin size="large" className='boxed' />
   }
 
-  if (error) {
+  if (error || !parcel) {
     return <div className='error-text boxed'>
       {error}
     </div>
@@ -88,13 +88,12 @@ export default function Lookup({ walletLoading, connect, address, provider }) {
   const isReady = !loading && address && provider;
 
   return (
-    <div className='boxed'>
+    <Card title={<h3 className='centered success-text bold'>Parcel Details</h3>} bordered={false}>
       {!result && <div>
-        {parcel && <div>
-          <h5 className='success-text'>Found Parcel</h5>
+        <div>
           <h2>{parcel.title}</h2>
-          {parcel.notes && <p>{parcel.notes}</p>}
-        </div>}
+          {parcel.notes && <p>Notes: {parcel.notes}</p>}
+        </div>
         {/* {location && JSON.stringify(location)} */}
         {parcel?.files && <span>
           <h3>Original Image(s):</h3>
@@ -120,6 +119,7 @@ export default function Lookup({ walletLoading, connect, address, provider }) {
 
         <br />
         <br />
+        <p>Your current location will be uploaded with your update.</p>
         {isReady && <Button type="primary" size="large" loading={loading} onClick={recordUpdate}>
           Submit update
         </Button>}
@@ -127,6 +127,7 @@ export default function Lookup({ walletLoading, connect, address, provider }) {
         {!address && <span className="web3-button">
           <Button onClick={connect} disabled={loading} loading={walletLoading}>Connect Wallet</Button>
         </span>}
+        {error && <p className='error-text'>{error}</p>}
       </div>}
       {result && <Result status="success" title="Event recorded!"
         subTitle={<span>TX: <a target="_blank" href={getExplorerUrl(result.hash, true)}>{result.hash}</a></span>}
@@ -137,7 +138,6 @@ export default function Lookup({ walletLoading, connect, address, provider }) {
             View updated contract
           </Button>,
         ]} />}
-
-    </div>
+    </Card>
   )
 }

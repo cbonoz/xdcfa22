@@ -11,7 +11,7 @@ const { Step } = Steps;
 
 function CreateFreight({ address, provider }) {
 
-  const [data, setData] = useState({ ...EXAMPLE_FORM });
+  const [data, setData] = useState({});
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState();
@@ -47,7 +47,7 @@ function CreateFreight({ address, provider }) {
     const body = { ...data };
 
     // Format files for upload.
-    const files = body.files.map((x) => {
+    const files = (body || []).files.map((x) => {
       return x;
     });
 
@@ -97,6 +97,10 @@ function CreateFreight({ address, provider }) {
           <div className="create-form white boxed">
             {!result && (<div>
               <h2>Create new freight request</h2>
+              <a href="#" onClick={e => {
+                e.preventDefault();
+                setData({ ...EXAMPLE_FORM });
+              }}>Set example data</a>
               <br />
 
               <h3 className="vertical-margin">Freight request name:</h3>
@@ -120,7 +124,7 @@ function CreateFreight({ address, provider }) {
               {/* TODO: add configurable amount of items */}
               <h3 className="vertical-margin">Optional: Upload image(s) of parcel</h3>
               <FileDrop
-                files={data.files}
+                files={data.files || []}
                 setFiles={(files) => updateData("files", files)}
               />
 

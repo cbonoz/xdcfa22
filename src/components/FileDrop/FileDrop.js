@@ -49,7 +49,7 @@ export function FileDrop({ files, setFiles }) {
     },
   });
 
-  const thumbs = files.map((file) => (
+  const thumbs = (files || []).map((file) => (
     <div style={thumb} key={file.name}>
       {file.preview && <img src={file.preview}/>}
       <div style={thumbInner} className='thumb-detail'>

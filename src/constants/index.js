@@ -7,8 +7,8 @@ export const IS_LOCAL = hostname.indexOf("localhost") !== -1
 export const COVALENT_KEY = process.env.REACT_APP_COVALENT_KEY; // covalent api key
 
 export const EXAMPLE_FORM = {
-    'title': 'Package 12345',
-    'notes': '',
+    'name': 'Package delivery from Boston to San Francisco',
+    'notes': 'This package is a delivery to our SF warehouse. It contains a new laptop and a new phone. Please be careful with it. REF #123',
     'files': []
 }
 export const WEB3_PROJECT_ID = process.env.REACT_APP_WC_ID || 'ec17b7971a950170d6c5710eb878ba9b';
@@ -28,10 +28,10 @@ export const CHAIN_OPTIONS = {
     name: "XDC Testnet",
     network: "XDC Testnet",
     symbol: "TXDC",
-    rpc: "https://erpc.xinfin.network",
-    rpcUrls: {default: "https://erpc.xinfin.network"},
-    // rpc: "https://erpc.apothem.network",
-    // rpcUrls: {default: "https://erpc.apothem.network"},
+    // rpc: "https://erpc.xinfin.network",
+    // rpcUrls: {default: "https://erpc.xinfin.network"},
+    rpc: "https://erpc.apothem.network	",
+    rpcUrls: {default: "https://erpc.apothem.network	"},
     url: "https://explorer.apothem.network/",
     blockExplorers: {default: "https://explorer.apothem.network/"},
     id: 51

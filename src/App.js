@@ -69,11 +69,11 @@ function App() {
       /**********************************************************/
       /* Handle chain (network) and chainChanged (per EIP-1193) */
       /**********************************************************/
-      // const chainId = await window.ethereum.request({ method: 'eth_chainId' });
-      // if (parseInt(chainId, 16) !== ACTIVE_CHAIN.id) {
-      //   alert(`Please connect to ${ACTIVE_CHAIN.name} network`);
-      //   return;
-      // }
+      const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+      if (parseInt(chainId, 16) !== ACTIVE_CHAIN.id) {
+        alert(`Please connect to ${ACTIVE_CHAIN.name} network`);
+        return;
+      }
 
       const ethersProvider = new ethers.providers.JsonRpcProvider(ACTIVE_CHAIN.rpc);
       setProvider(ethersProvider)

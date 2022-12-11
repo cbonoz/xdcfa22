@@ -32,6 +32,10 @@
   background: white;
 }
 
+.bold {
+  /* font-weight: 600; */
+}
+
 .boxed {
   padding: 20px;
   border-radius: 5px;
@@ -52,6 +56,10 @@
 
 .web3-button {
   margin-top: 12px;;
+}
+
+.ant-card-head-title {
+  display: inline-flex;
 }
 
 .success-text {

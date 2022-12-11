@@ -84,11 +84,8 @@ Blockfreight should now be running on port 3000.
 ### Connecting wallet for contract deployment
 <img src="./img/wallet.png" width=800 />
 
-### Confirm contract creation
-<img src="./img/confirm.png" width=800 />
-
 ### Contract created!
-<img src="./img/contract1.png" width=800 />
+<img src="./img/created.png" width=800 />
 
 ### IPFS record on contract creation
 <img src="./img/ipfs.png" width=800 />
@@ -105,14 +102,11 @@ Blockfreight should now be running on port 3000.
 ### Providing a freight contract update
 <img src="./img/update.png" width=800 />
 
-### Freight update transaction added to contract record
-<img src="./img/contract2.png" width=800 />
+### Viewing freight update history on the XDC smart contracct
+<img src="./img/contract.png" width=800 />
 
-### Freight update event is emitted from the contract
-<img src="./img/event.png" width=800 />
-
-### Freight history lookup
-<img src="./img/history.png" width=800 />
+### About page
+<img src="./img/about.png" width=800 />
 
 
 
