@@ -2,21 +2,20 @@ import { Button, Card, Result, Spin } from 'antd'
 import TextArea from 'antd/lib/input/TextArea'
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router'
-import { ACTIVE_CHAIN, EXAMPLE_FORM } from '../constants'
 import { recordParcelEvent } from '../contract/freightContract'
 import { getExplorerUrl, humanError, ipfsUrl } from '../util'
 import { getLocation } from '../util/location'
 import { getMetadata } from '../util/stor'
 import { FileDrop } from './FileDrop/FileDrop'
 
-export default function Lookup({ walletLoading, connect, address, provider }) {
+export default function Lookup({ activeChain, walletLoading, connect, address, provider }) {
 
   const [error, setError] = useState()
   const [result, setResult] = useState()
   const [loading, setLoading] = useState(true)
   const [parcel, setParcel] = useState()
   const [location, setLocation] = useState()
-  const [data, setData] = useState({ ...EXAMPLE_FORM })
+  const [data, setData] = useState({files: []})
 
   const params = useParams()
   const { itemId } = params
@@ -130,7 +129,7 @@ export default function Lookup({ walletLoading, connect, address, provider }) {
         {error && <p className='error-text'>{error}</p>}
       </div>}
       {result && <Result status="success" title="Event recorded!"
-        subTitle={<span>TX: <a target="_blank" href={getExplorerUrl(result.hash, true)}>{result.hash}</a></span>}
+        subTitle={<span>TX: <a target="_blank" href={getExplorerUrl(activeChain, result.hash, true)}>{result.hash}</a></span>}
         extra={[
           <Button type="primary" key="console" onClick={() => {
             window.open(result.contractUrl, "_blank")

@@ -10,7 +10,7 @@ import {
   FormOutlined,
 } from "@ant-design/icons";
 import { About } from "./components/About";
-import { ACTIVE_CHAIN, APP_DESC, APP_NAME, COVALENT_KEY } from "./constants";
+import { APP_DESC, APP_NAME, CHAIN_OPTIONS, DEFAULT_CHAIN } from "./constants";
 import Lookup from "./components/Lookup";
 // import CreateFreight from "./components/CreateFreight";
 import History from "./components/History";
@@ -30,6 +30,7 @@ const { Option } = Select;
 
 function App() {
   const navigate = useNavigate()
+  const [activeChain, setActiveChain] = useState(DEFAULT_CHAIN)
   const [provider, setProvider] = useState()
   const [address, setAddress] = useState()
   const [loading, setLoading] = useState(false)
@@ -70,12 +71,12 @@ function App() {
       /* Handle chain (network) and chainChanged (per EIP-1193) */
       /**********************************************************/
       const chainId = await window.ethereum.request({ method: 'eth_chainId' });
-      if (parseInt(chainId, 16) !== ACTIVE_CHAIN.id) {
-        alert(`Please connect to ${ACTIVE_CHAIN.name} network`);
+      if (parseInt(chainId, 16) !== activeChain.id) {
+        alert(`Please connect to ${activeChain.name} network`);
         return;
       }
 
-      const ethersProvider = new ethers.providers.JsonRpcProvider(ACTIVE_CHAIN.rpc);
+      const ethersProvider = new ethers.providers.JsonRpcProvider(activeChain.rpc);
       setProvider(ethersProvider)
     } catch (e) {
       console.error(e);
@@ -121,6 +122,19 @@ function App() {
             <span className="heading-button">
               <Button size="large" type="primary" onClick={connect} disabled={loading} loading={loading}>{address ? `${abbreviatedAddress} (logout)` : 'Connect Wallet'}</Button>
             </span>
+            &nbsp;
+            <span className="heading-button">
+              <Select
+                onChange={(optId) => setActiveChain(CHAIN_OPTIONS[optId])}
+                value={activeChain.id}
+                >
+                {Object.keys(CHAIN_OPTIONS).map((k, i) => {
+                  const option = CHAIN_OPTIONS[k]
+                  return <Option key={i} value={option.id}>{option.name}</Option>
+                })}
+              </Select>
+
+            </span>
             {/* {balance && <span>
             &nbsp;Balance: {balance?.formatted} {balance?.symbol}
           </span>} */}
@@ -132,7 +146,7 @@ function App() {
         </Header>}
         <Content>
           <span className="no-print" style={{ right: 0, position: 'absolute' }}>
-            &nbsp;Active Network: <b>{ACTIVE_CHAIN.name}</b>
+            &nbsp;Active Network: <b>{activeChain.name}</b>
             {address && <span>
               ,&nbsp;Logged in: <b>{abbreviatedAddress}</b>
             </span>}
@@ -145,8 +159,8 @@ function App() {
               {/* <Route path="/carbon-map" element={<Home/>}/> */}
               <Route path="/about" element={<About />} />
               <Route path="/history" element={<History />} />
-              <Route path="/create" element={<CreateFreight provider={provider} address={address} />} />
-              <Route path="/i/:itemId" element={<Lookup provider={provider} address={address} connect={connect} walletLoading={loading} />} />
+              <Route path="/create" element={<CreateFreight activeChain={activeChain} provider={provider} address={address} />} />
+              <Route path="/i/:itemId" element={<Lookup activeChain={activeChain} provider={provider} address={address} connect={connect} walletLoading={loading} />} />
               <Route path="/qr/:itemId" element={<QrCodePage />} />
               <Route path="/about" element={<About />} />
 

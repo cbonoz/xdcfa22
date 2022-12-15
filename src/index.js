@@ -4,10 +4,6 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import { ACTIVE_CHAIN,  } from './constants';
-
-const chains = [ACTIVE_CHAIN]
-
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

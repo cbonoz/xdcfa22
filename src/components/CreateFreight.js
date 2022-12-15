@@ -9,8 +9,7 @@ import TextArea from "antd/lib/input/TextArea";
 
 const { Step } = Steps;
 
-function CreateFreight({ address, provider }) {
-
+function CreateFreight({ address, provider,activeChain }) {
   const [data, setData] = useState({});
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
@@ -57,7 +56,7 @@ function CreateFreight({ address, provider }) {
       // 1) deploy base contract with metadata,
       const contract = await deployContract(provider.getSigner(), data.name, data.notes)
       res["contract"] = contract.address;
-      res["contractUrl"] = getExplorerUrl(contract.address);
+      res["contractUrl"] = getExplorerUrl(activeChain, contract.address);
 
       // 2) Upload files/metadata to ipfs.
       const cid = await uploadFiles(

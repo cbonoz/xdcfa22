@@ -40,9 +40,9 @@ export const CHAIN_OPTIONS = {
 
 export const CHAIN_IDS = Object.keys(CHAIN_OPTIONS)
 
-export const CHAIN_ID = process.env.REACT_APP_CHAIN_ID || "51"
-export const ACTIVE_CHAIN = CHAIN_OPTIONS[CHAIN_ID];
-if (!ACTIVE_CHAIN) {
+export const CHAIN_ID = process.env.REACT_APP_CHAIN_ID || "50"
+export const DEFAULT_CHAIN = CHAIN_OPTIONS[CHAIN_ID];
+if (!DEFAULT_CHAIN) {
   throw new Error("Invalid chain id")
 }
 

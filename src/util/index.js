@@ -1,5 +1,4 @@
-import { BigNumber } from "ethers";
-import { ACTIVE_CHAIN, IPFS_BASE_URL } from "../constants";
+import { IPFS_BASE_URL } from "../constants";
 
 export function addMinutes(numOfMinutes, date = new Date()) {
     date.setMinutes(date.getMinutes() + numOfMinutes);
@@ -41,9 +40,9 @@ export function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-export const getExplorerUrl = (hash, useTx) => {
+export const getExplorerUrl = (activeChain, hash, useTx) => {
   hash = xdcAddress(hash);
-  return `${ACTIVE_CHAIN.url}${useTx ? "tx/" : "address/"}${hash}`;
+  return `${activeChain.url}${useTx ? "tx/" : "address/"}${hash}`;
 }
 
 export const createJsonFile = (signload, fileName) => {

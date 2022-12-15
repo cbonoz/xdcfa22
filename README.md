@@ -1,6 +1,6 @@
 <br/>
 <p align='center'>
-    <img src="./img/logo_trans.png" width=350/>
+    <img src="https://i.ibb.co/P4xxSNT/logo-trans.png" width=350/>
 </p>
 
 <br/>
@@ -14,9 +14,13 @@ Generate unique blockchain-backed QR codes that can either be presented or place
 
 Built for the <a href="https://xdc.devpost.com" target="_blank">XDC Defi 2022 hackathon.</a>
 
-Demo video: 
+Supports both testnet and mainnet contract deployments.
 
-Going after the best ported Dapp to XDC prize categor and designed to work as a light blockchain-based package tracking platform similar to apps like Flexport.
+Demo video: https://youtu.be/kPAAVL1GLqo
+
+Deployed with mainnet here url: https://blockfreight.surge.sh/create
+
+Going after the best ported Dapp to XDC prize category and designed to work as a light blockchain-based package tracking platform similar to apps like Flexport.
 
 ### Motivation
 
@@ -57,7 +61,7 @@ Define the follow environment variables.
 
 <pre>
     REACT_APP_STORAGE_KEY=  // Your web3.storage key (for file storage).
-    REACT_APP_ACTIVE_CHAIN_ID= // 51 or 50 currently for xdc testnet or mainnet (defaults to testnet).
+    REACT_APP_ACTIVE_CHAIN_ID= // 51 or 50 currently for xdc testnet or mainnet (defaults to mainnet).
 </pre>
 
 
@@ -65,18 +69,16 @@ Define the follow environment variables.
 
 Blockfreight should now be running on port 3000.
 
-<b>Note this project is currently a prototype and would require additional work to be production ready on XDC mainnet.</b>
-
 ### Potential future work
 * Add subscription costs for creating different record types, auditing, and organization permissioning.
 * Enable data export of blockchain logs to more native or traditional formats such as excel or pdf.
 * Add support for user logins in addition to metamask (or wallet-based) logins.
 
+### Home page
+
+<img src="https://i.ibb.co/pX4sLkV/blockfreight.png" width=800 />
 
 ## Screenshots / User flow
-
-### Home
-<img src="./img/home.png" width=800 />
 
 ### Creating a new parcel contract
 <img src="./img/create.png" width=800 />

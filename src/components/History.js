@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
 import { Button, Input, Select, Table } from "antd";
-import { APP_NAME, CHAIN_OPTIONS, ACTIVE_CHAIN } from "../constants";
+import { APP_NAME, CHAIN_OPTIONS,  } from "../constants";
 import { getTransactions } from "../util/covalent";
 import { capitalize, col, formatDate } from "../util";
 import logo from '../assets/logo_trans.png'
@@ -20,11 +19,11 @@ const COLUMNS = [
   ),
 ];
 
-function History(props) {
+function History({activeChain}) {
   const [address, setAddress] = useState(
     "0xF7bA7656365459ed930B01AbB32417c437C6693c"
   );
-  const [chainId, setChainId] = useState(ACTIVE_CHAIN.id);
+  const [chainId, setChainId] = useState(activeChain.id);
   const [loading, setLoading] = useState();
   const [data, setData] = useState();
 
@@ -60,7 +59,7 @@ function History(props) {
       <br />
       <p></p>
       <Select
-        defaultValue={ACTIVE_CHAIN.name}
+        defaultValue={activeChain.name}
         style={{ width: 180 }}
         onChange={(v) => setChainId(v)}
       >
