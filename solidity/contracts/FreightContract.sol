@@ -19,8 +19,8 @@ contract FreightContract is Ownable {
     // Indicates if the contract is active or completed (false on creation).
     bool public isCompleted;
 
-    // The Transfer event helps off-chain applications understand
-    // what happens within your contract.
+    // The emitted FreightEvent enables off-chain applications to track
+    // updates within the contract.
     event FreightEvent(address indexed owner, string indexed name, address indexed updater, string notes, string lat, string lng, string ipfsUrl);
 
     constructor(string memory _name, string memory _notes) payable {

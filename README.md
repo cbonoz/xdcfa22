@@ -107,6 +107,9 @@ Blockfreight should now be running on port 3000.
 ### Viewing freight update history on the XDC smart contracct
 <img src="./img/contract.png" width=800 />
 
+### Smart contract code snippet
+<img src="./img/code.png" width=800 />
+
 ### About page
 <img src="./img/about.png" width=800 />
 
